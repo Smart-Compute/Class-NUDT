@@ -73,6 +73,7 @@ class MyComputer(object):
             self.regs[self.ir[1]] = self.getMemData(self.ir[2]*4)
             print("Load #", self.ir[2], "to r", self.ir[1])
             print("The regster is", self.regs[self.ir[1]])
+            print("Memory status is", self.mem[0:16])
         # Add r3, r1, r2 [2,3,1,2]
         elif self.ir[0] == 2:
             # 将四个字节转成10进制，相加
@@ -82,6 +83,7 @@ class MyComputer(object):
             # 将十进制转换成十六进制
             self.regs[self.ir[1]] = bytearray.fromhex(str(hex(self.regs[self.ir[1]])).replace('0x','').zfill(8))
             print("The regster is", self.regs[self.ir[1]])
+            print("Memory status is", self.mem[0:16])
         # Store r3, #3 [3,3,3,0]
         elif self.ir[0] == 3:
             # self.mem[self.ir[2]*4+3] = self.regs[self.ir[1]]
@@ -117,10 +119,13 @@ init IO
 ['Load r1, #0', 'Load r2, #1', 'Add r3, r1, r2', 'Store r3, #3']
 Load # 0 to r 1
 The regster is bytearray(b'\x00\x00\x00\x01')
+Memory status is bytearray(b'\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00')
 Load # 1 to r 2
 The regster is bytearray(b'\x00\x00\x00\x01')
+Memory status is bytearray(b'\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00')
 Add r 1 and r 2 . The result is 2
 The regster is bytearray(b'\x00\x00\x00\x02')
+Memory status is bytearray(b'\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00')
 Store to # 3 and the result is ...
 Memory status is bytearray(b'\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x02')
 '''
