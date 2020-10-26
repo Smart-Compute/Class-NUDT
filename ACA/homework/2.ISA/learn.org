@@ -1,0 +1,117 @@
+#+TITLE: Learn
+* [[https://www.youtube.com/watch?v=wjHlvQfo5uI][Design Your Own CPU Instruction Set - YouTube]]
+** Assumptions
+- 16 bit architecture
+- Instructions are 32 wide
+- No direct operations on memory
+
+** Instruction format  
+- First byte is opcode
+  + 00(0x00) is LOAD
+  + 16(0x10) is STORE
+  + 32(0x20) is CMP
+  + 48(0x30) is BRANCH(相对跳转指令叫做branch；绝对地址跳转指令叫做jump)
+- Second byte is register
+- Third and fourth are data
+** LOAD
+*** direct LOAD
+  + R1 is 1, R2 is 2, etc
+  + So LOAD something into R2 is: 0x00 0x02(i.e. LOAD R2)
+  + 65535 is 0xFFFF | LOAD 65535 into R2 is: 0x00 0x02 0xFF 0xFF | LOAD R2 65535 | 4 bytes,i.e. 32 bits
+*** LOAD From another register
+- if 0x00 is LOAD value
+- Then 0x01 can be LOAD from register
+- LOAD R3 with contents of R6 is:
+- 0x01 0x03    0x00     0x06
+- LOAD Into R3 (Unused) From R6
+
+*** LOAD from memory
+- LOAD contents for mem into a register
+- After 0x00 and 0x01 comes 0x02
+- LOAD R3 with contents of 0xABCD is:
+- 0x02 0x03 0xAB 0xCD
+
+*** RINSE, SPIN, REPEAT
+Now that LOAD is done, we need other instructions
+** Store
+*** Store in memory
+- Store reg in memory [16 bits](0x10)
+- Store reg in memory [8 bits high](0x11)
+- Store reg in memory [8 bits low](0x12)
+
+** IF
+- Compare register with register(0x20)
+- Compare register with value(0x21)
+
+** Jump!
+- Branch(if equal) (0x30)
+- Branch(if >) (0x31)
+- Branch(if <) (0x32)
+- Branch(if always) (0x33)
+
+** Maths
+- Add value to register (0x40)
+- Add register to register (0x42)
+- Subtract value from register (0x41)
+- Subtract register from register (0x43)
+
+** Misc  
+- Noop 0xFF (i.e. 0xFF 0xFF 0xFF 0xFF)
+- Halt 0xFE (i.e. 0xFE 0xFF 0xFE 0xFF)
+
+*** Missing?
+- Multipy, Divide, Carry, Shift, AND, OR, XOR, etc
+- Subroutines
+- Stack
+- Flag manipulation
+- More ...
+
+
+** Summary
+[[file:learn.org_imgs/20201025_103106_ceLdtk.png]] 
+
+* [[https://www.youtube.com/watch?v=5ImTvOyvH2w&list=PLxLxbi4e2mYGvzNw2RzIsM_rxnNC8m2Kz][Write Your Own Assembler for Your Own CPU - YouTube]] 
+** Assembly language for Load
+- LD R2, 0xFFFF
+- Basic format:
+- Opcode <SP> Reg <Comma> Data
+- Now we need an "assembler" to turn the mnemonics into machine code
+
+** Assembler
+- Assembly code written in a text file
+- One instruction per line
+- Writes 4 bytes of machine code per instruction
+- python!
+
+*** Assember(pseudo code)
+#+BEGIN_SRC python
+read code from a txt file
+for line in file:
+    split into tokens on SPACE
+    for tok[0]=="Load":
+        # Load R2 257
+        r = int(tok[1][1]) #i.e. 2 from R2
+        v = int(tok[2]) #i.e. 257
+        b = [0x00, r, v>>8, v & 0xFF]
+    elif tok[0]=="Store":
+        pass
+#+END_SRC
+
+*** Labels
+- Quick cheat to handle labels
+- Pre-parse the assembly text file
+- Labels start with dot
+  + .label
+- Create table of labels/addresses
+- Since mem addr is line number * 4
+- def parselabels(fn):
+
+*** example
+
+#+BEGIN_SRC
+Load R1 140
+.loop
+CMP R1 150
+ADD R1 1
+BLT loop
+#+END_SRC

@@ -1,0 +1,78 @@
+#+TITLE: ACA
+
+* ISA
+作业要求：功能级（行为级），回避数据类型
+
+** ISA设计
+- 计算（阵列向量，整数，浮点……）、分支（阶跃函数）、系统（停机，启动）、其他
+- 数据 形式、放在哪，多少位
+- 操作数：  
+  + 存放位置，寄存器，存储器
+  + 寻址方式
+  + 操作
+- 指令编码    
+  + 操作，分段编码（opcode func） R-type
+  + 寻址方式
+  + 操作 CISC vs RISC
+    - RISC-V是以上两种的混合
+- 复杂是趋势      
+- 存储器，容量，代码密度
+  + cpu time = IC * cpi * cycle time
+  + RISC-I/II, VAX-II
+  + 编译优化
+- 通用指令集的功能扩展
+  + MMX, AVX2
+- 中断：精确、非精确
+
+** ISA_指令的执行
+选择-->ISA，1. 控制通路；2. 数据通路
+
+时间
+- 单周期cpu；
+- 多周期cpu（取指令，执行），IF(IF, ID) EXE(Ex, M, WB), 每条指令执行时间是相同的；
+    #+BEGIN_SRC python
+    if pc->mbr: #一个操作通常称为1节拍
+        read mem
+        mbr->IR
+    #+END_SRC
+- 流水线cpu，提高了指令的吞吐率
+    | IF | ID | E  | M  | WB |     |
+    |    | IF | ID | E  | M  | WB  |
+    |    |    | IF | ID | E  | ... |
+  + 相关：结构，数据，控制
+  + 如果两条指令因为相关而无法执行，称为冒险，消除流水线冒险的策略——让相关的指令离得足够远
+  + 不同的冒险，有不同的策略。结构相关：指令和数据分开；使用同一个寄存器，但是有多个端口（读端口、写端口）
+  + 数据相关：数据(Data Ferwurliy)，如下图，在两个E之间建立一个数据通路
+    | IF | ID | E(data get) | M                 | WB |
+    |    | IF | ID          | E(use data above) | M  |
+    #+BEGIN_SRC python
+        if cond == True:
+            offset + NPC
+        else:
+            NPC
+    #+END_SRC
+    - 循环中，一个数据会被经常用到（程序的局部性），分支预测表，历史，BHB
+      | b1 | t | 下条指令目标地址 |
+      |    |   |                  |
+      只有第一次和最后一次预测错误，但是有局限性
+
+      a=b+c;d=e-f
+      #+BEGIN_SRC python
+        lw Rb addrb
+        lw Rc addrc
+        add Ra Rb Rc
+        sw Ra addra # sub可以移到后面
+        lw Re addre # 这两条可以移到add前
+        lw Rf addrf
+        sub Rd Re Rf
+      #+END_SRC
+- * 指针
+  #+BEGIN_SRC C
+    *(p+offset(t1))=...
+    ...= *(p+offset(t2))
+  #+END_SRC
+  存储二义性，高级语言的语法所带来的
+
+      
+
+
