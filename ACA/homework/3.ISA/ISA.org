@@ -1,0 +1,4 @@
+#+TITLE: ISA
+
+- [[https://blog.csdn.net/l919898756/article/details/81238266?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param#commentBox][RISC-V指令集架构特点及其总结_草芥小白的博客-CSDN博客]]
+- [[https://computationstructures.org/lectures/isa/isa.html#17][L09: Instruction Set Architectures]]
