@@ -1,0 +1,39 @@
+Load R0 1
+Load R1 1
+Load R2 1001
+Load R3 5
+.tag
+Store R1 (R2)
+Sub R2 1
+Cmp R2 R0
+BNE tag
+Store R1 (R2)
+Load R2 1001
+.loop
+Load R1 1
+Add R1 R3
+Store R1 (R2)
+Sub R2 1
+Load R1 1
+Add R1 R3
+Store R1 (R2)
+Sub R2 1
+Load R1 1
+Add R1 R3
+Store R1 (R2)
+Sub R2 1
+Load R1 1
+Add R1 R3
+Store R1 (R2)
+Sub R2 1
+Load R1 1
+Add R1 R3
+Store R1 (R2)
+Sub R2 1
+Cmp R2 R0
+BNE loop
+Load R1 1
+Add R1 R3
+Store R1 (R2)
+Sub R2 1
+Halt

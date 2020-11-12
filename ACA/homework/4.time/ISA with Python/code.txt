@@ -1,0 +1,15 @@
+Load R1 100
+Load R2 R1
+Load R3 $100
+Add R1 50
+Sub R1 50
+Add R1 R2
+Sub R1 R2
+Store R1 $0
+Store R1 (R3)
+Cmp R1 R2
+.loop
+Cmp R1 103
+Add R1 1
+BNE loop
+Halt

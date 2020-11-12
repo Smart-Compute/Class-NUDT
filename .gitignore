@@ -1,0 +1,94 @@
+# For current directory only
+# ----------------------------------------------------------------------------
+
+# General
+# ----------------------------------------------------------------------------
+*.o
+*.out
+
+# log
+*.log
+
+# cache
+*.cache
+cache/
+
+# Windows   
+# ----------------------------------------------------------------------------
+Thumbs.db
+Desktop.ini
+
+# Tags      
+# -----------------------------------------------------------------------------
+TAGS
+!TAGS/
+tags
+tags-cn
+!tags/
+.tags
+.tags1
+tags.lock
+tags.temp
+gtags.files
+GTAGS
+GRTAGS
+GPATH
+cscope.files
+cscope.out
+cscope.in.out
+cscope.po.out
+
+# Vim       
+# ------------------------------------------------------------------------------
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+/.vim
+
+# Test % Tmp
+# -------------------------------------------------------------------------------
+test.*
+tmp.*
+temp.*
+
+# Java
+# -------------------------------------------------------------------------------
+*.class
+
+# JavaScript
+# -------------------------------------------------------------------------------
+node_modules
+
+# Python
+# -------------------------------------------------------------------------------
+*.pyc
+.idea/
+/.idea
+build/
+__pycache__
+
+# Rust
+# -------------------------------------------------------------------------------
+target/
+**/*.rs.bk
+
+# C/Cpp
+# -------------------------------------------------------------------------------
+/cmake-build-debug/
+
+DL/E2/*.zip
+DL/E2/实验二/data/*
+DL/E2/实验二/fashion_mnist_data/*
+DL/E3/mnist_data/*
+DL/E4/glove.6B.100d.txt
+DL/final/data/*
+DL/final/fashion_mnist_data/*
+DL/final/logs/*
+DL/final/mnist_data/*
+DL/final/simple_autoencoder/*
+DL/E4/.data/*
+DL/E4/.vector/*
+
